@@ -38,14 +38,17 @@ def flask():
 
   @app.route('/volume_up')
   def volume_up():
+    print('Действие: volume_up')
     return media.volume_up()
 
   @app.route('/volume_down')
   def volume_down():
+    print('Действие: volume_down')
     return media.volume_down()
 
   @app.route('/volume_get')
   def volume_get():
+    print('Действие: volume_get')
     volume = media.get_volume()['volume']
     return os.system(f'termux-tts-speak Громкость: {volume}')
   
