@@ -1,7 +1,10 @@
 import os, time
 from flask import Flask
+from threading import Thread, Event
+ev = Event()
 
 def rec():
+  ev.wait()
   # Записывание микрофона в аудиофайл (audio.wav) (5 с)
   os.system('termux-microphone-record -f audio.wav -l 5')
   time.sleep(5.5)
@@ -10,12 +13,18 @@ def rec():
   os.system('rm audio.wav')
   rec()
 
-app = Flask(__name__)
+def flask()
+  ev.wait()
+  app = Flask(__name__)
 
-@app.route('/volume_up')
-def volume_up():
+  @app.route('/volume_up')
+  def volume_up():
     print('громкость повышена')
+  
+  app.run(port=80)
 
-if __name__ == '__main__':
-    rec()
-    app.run(port=80)
+th1 = Thread(target=rec)
+th2 = Thread(target=flask)
+th1.start()
+th2.start()
+ev.set()
