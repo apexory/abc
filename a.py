@@ -1,11 +1,8 @@
-import threading
+import os, time
 
-def setInterval(func,time):
-    e = threading.Event()
-    while not e.wait(time):
-        func()
+# Записывание микрофона в аудиофайл (audio.wav) (5 с)
+os.system('termux-microphone-record -f audio.wav -l 5')
+time.sleep(6)
 
-def a():
-    print('hi')
-    
-setInterval(a, 10)
+print('Готово!')
+os.system('ls')
