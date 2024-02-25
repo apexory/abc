@@ -43,6 +43,10 @@ def flask():
   @app.route('/volume_down')
   def volume_down():
     return media.volume_down()
+
+  @app.route('/volume_get')
+  def volume_get():
+    return os.system(f'termux-tts-speak Громкость: {media.get_volume()['volume']}')
   
   app.run(port=8080, host='192.168.1.64')
 
