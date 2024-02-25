@@ -1,4 +1,7 @@
 import os, time, threading
+import speech_recognition as sr
+
+recognizer = sr.Recognizer()
 
 def setInterval(func,time):
     e = threading.Event()
@@ -8,9 +11,18 @@ def setInterval(func,time):
 def rec():
   # Записывание микрофона в аудиофайл (audio.wav) (5 с)
   os.system('termux-microphone-record -f audio.wav -l 5')
-  time.sleep(5.5)
+  time.sleep(5)
 
-  os.system('curl -X POST -F "file=@audio.wav" http://192.168.1.65:8080')
-  os.system('rm audio.wav')
+  with sr.AudioFile("audio.wav") as source:
+    audio_data = recognizer.record(source)
+      
+  try:
+    text = recognizer.recognize_google(audio_data, language="ru-RU")
+    if "привет" in text:
+    	print('шо')
+  except sr.UnknownValueError:
+    print("Не удалось распознать речь")
+  except sr.RequestError as e:
+    print("Ошибка сервиса распознавания: {0}".format(e))
 
-setInterval(rec, 6)
+setInterval(rec, 5)
