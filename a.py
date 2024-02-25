@@ -5,4 +5,7 @@ def setInterval(func,time):
     while not e.wait(time):
         func()
 
-setInterval(print('hi'), 10)
+def a():
+    print('hi')
+    
+setInterval(a, 10)
