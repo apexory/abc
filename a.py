@@ -1,4 +1,5 @@
 import os, time
+from flask import Flask
 
 def rec():
   # Записывание микрофона в аудиофайл (audio.wav) (5 с)
@@ -9,4 +10,12 @@ def rec():
   os.system('rm audio.wav')
   rec()
 
-rec()
+app = Flask(__name__)
+
+@app.route('/volume_up')
+def volume_up():
+    print('громкость повышена')
+
+if __name__ == '__main__':
+    rec()
+    app.run(port=80)
