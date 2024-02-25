@@ -1,4 +1,4 @@
-import os, time, threading
+import os, time, threading, soundfile
 import speech_recognition as sr
 
 recognizer = sr.Recognizer()
@@ -13,7 +13,10 @@ def rec():
   os.system('termux-microphone-record -f audio.wav -l 5')
   time.sleep(5)
 
-  with sr.AudioFile("audio.wav") as source:
+  data, samplerate = soundfile.read('audio.wav')
+  soundfile.write('audio1.wav', data, samplerate, subtype='PCM_16')
+
+  with sr.AudioFile("audio1.wav") as source:
     audio_data = recognizer.record(source)
       
   try:
