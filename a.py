@@ -1,7 +1,5 @@
 import pyaudio, os
 
-os.system('termux-microphone-record -l 0')
-
 p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16, 
 				        channels=1, 
