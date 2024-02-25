@@ -24,9 +24,9 @@ for status in client.register(store):
 
 def rec():
   ev.wait()
-  # Записывание микрофона в аудиофайл (audio.wav) (5 с)
-  os.system('termux-microphone-record -f audio.wav -l 5')
-  time.sleep(5.5)
+  # Записывание микрофона в аудиофайл (audio.wav) (2 с)
+  os.system('termux-microphone-record -f audio.wav -l 2')
+  time.sleep(2.2)
 
   os.system('curl -X POST -F "file=@audio.wav" http://192.168.1.65:8080')
   os.system('rm audio.wav')
