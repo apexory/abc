@@ -18,8 +18,7 @@ def rec():
       
   try:
     text = recognizer.recognize_google(audio_data, language="ru-RU")
-    if "привет" in text:
-    	print('шо')
+    print(text)
   except sr.UnknownValueError:
     print("Не удалось распознать речь")
   except sr.RequestError as e:
