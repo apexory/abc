@@ -1,7 +1,26 @@
 import os, time
 from flask import Flask
+from pywebostv.discovery import * 
+from pywebostv.connection import *
+from pywebostv.controls import *
 from threading import Thread, Event
 ev = Event()
+
+store = {'client_key': '490331cd44c8820b19dd17bdebb924ba'}
+
+client = WebOSClient("192.168.1.67")
+client.connect()
+
+media = MediaControl(client)
+system = SystemControl(client)
+app = ApplicationControl(client)
+inp = InputControl(client)
+
+for status in client.register(store):
+    if status == WebOSClient.PROMPTED:
+        print("LG: Примите соединение на подключение")
+    elif status == WebOSClient.REGISTERED:
+        print("LG: Регистрация была завершена")
 
 def rec():
   ev.wait()
@@ -19,13 +38,13 @@ def flask():
 
   @app.route('/volume_up')
   def volume_up():
-    print('громкость повышена')
+    return media.volume_up()
 
   @app.route('/volume_down')
   def volume_down():
-    print('громкость понижена')
+    return media.volume_down()
   
-  app.run(port=80, host='192.168.1.64')
+  app.run(port=8080, host='192.168.1.64')
 
 th1 = Thread(target=rec)
 th2 = Thread(target=flask)
