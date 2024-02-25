@@ -25,7 +25,7 @@ def flask():
   def volume_down():
     print('громкость понижена')
   
-  app.run(port=80)
+  app.run(port=80, host='192.168.1.64')
 
 th1 = Thread(target=rec)
 th2 = Thread(target=flask)
