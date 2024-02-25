@@ -13,13 +13,17 @@ def rec():
   os.system('rm audio.wav')
   rec()
 
-def flask()
+def flask():
   ev.wait()
   app = Flask(__name__)
 
   @app.route('/volume_up')
   def volume_up():
     print('громкость повышена')
+
+  @app.route('/volume_down')
+  def volume_down():
+    print('громкость понижена')
   
   app.run(port=80)
 
