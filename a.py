@@ -24,9 +24,10 @@ for status in client.register(store):
 
 def rec():
   ev.wait()
-  # Записывание микрофона в аудиофайл (audio.wav) (2 с)
-  os.system('termux-microphone-record -f audio.wav -l 2')
-  time.sleep(2.2)
+  # Записывание микрофона в аудиофайл (audio.wav) (0 с)
+  os.system('termux-microphone-record -f audio.wav -l 0')
+  time.sleep(2)
+  os.system('termux-microphone-record -q')
 
   os.system('curl -X POST -F "file=@audio.wav" http://192.168.1.65:8080')
   os.system('rm audio.wav')
@@ -53,6 +54,18 @@ def flask():
     print('Действие: volume_get')
     volume = media.get_volume()['volume']
     os.system(f'termux-tts-speak Громкость: {volume}')
+    return 'ok'
+
+  @app.route('/pause')
+  def pause():
+    print('Действие: pause')
+    media.pause()
+    return 'ok'
+
+  @app.route('/resume')
+  def resume():
+    print('Действие: resume')
+    media.play()
     return 'ok'
   
   app.run(port=8080, host='192.168.1.64')
